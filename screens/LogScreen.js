@@ -41,7 +41,7 @@ const LogScreen = ({navigation}) => {
         <Text style={styles.text}  //placeholder
         >Email</Text>
         <TextInput
-        placeholder='Correo@gmail.com'
+        placeholder='Introduce tu correo electronico'
         onChangeText={setUserName}
         value={userName}
         
