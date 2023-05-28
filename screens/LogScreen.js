@@ -16,7 +16,7 @@ const LogScreen = ({navigation}) => {
         })
         .then(response => {
           //console.log(response.data);
-          if(response.data["message"]=="user Administrador found"){
+          if(response.data["message"]=="user legalizador found"){
             navigation.navigate('HomeScreen');
           }
           // manejar la respuesta exitosa aquí
