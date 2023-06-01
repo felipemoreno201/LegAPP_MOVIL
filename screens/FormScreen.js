@@ -10,13 +10,12 @@ const FormScreen = ({navigation}) => {
   const [selectedImage, setSelectedImage] = useState(null);
   const [valor, setvalor] = useState();
   const [descripcion, setdescripcion] = useState();
+  const [factura, setfactura] = useState();
   const [providers, setProviders] = useState([]);
   const [tipoGasto, setTipoGasto] = useState("");
   const [tiposDeGasto, setTiposDeGasto] = useState([]);
   const [selectedProvider, setSelectedProvider] = useState('');
-  const [selectedidrol, setSelectedidrol] = useState("");
-  const [idusuario, setidusuario] = useState([]);
-  const [selectedidusuario, setSelectedidusuario] = useState("");
+  
 
   useEffect(() => {
     // Realizar solicitud HTTP para recuperar los proveedores desde la API
@@ -24,18 +23,6 @@ const FormScreen = ({navigation}) => {
       .then(response => {
         // Establecer los proveedores recuperados en el estado
         setProviders(response.data);
-      })
-      .catch(error => {
-        console.log(error);
-      });
-  }, []);
-
-  useEffect(() => {
-    // Realizar solicitud HTTP para recuperar los proveedores desde la API
-    axios.get("http://localhost:4500/usuarios")
-      .then(response => {
-        // Establecer los proveedores recuperados en el estado
-        setidusuario(response.data);
       })
       .catch(error => {
         console.log(error);
@@ -71,8 +58,7 @@ const FormScreen = ({navigation}) => {
 
   const handleClick = () => {
     const formdata=new FormData()
-    formdata.append('idUsuario', selectedidusuario);
-    formdata.append('idRol', selectedidrol);
+    formdata.append('numFactura', factura);
     formdata.append('idTipoGasto', tipoGasto);
     formdata.append('idProveedor', selectedProvider);
     formdata.append('descripcionGasto', descripcion);
@@ -126,33 +112,20 @@ const FormScreen = ({navigation}) => {
         ))}
       </Picker>
 
-      <Text style={styles.text}>Seleccione el rol</Text>
-      <Picker
-        selectedValue={selectedidrol}
-        onValueChange={(itemValue, itemIndex) => setSelectedidrol(itemValue) }
-        style={styles.picker}
-      >
-           <Picker.Item label="Legalizador" value="1" />
-           <Picker.Item label="Administrador" value="2" /> 
-      </Picker>
-
-      <Text style={styles.text}>Seleccione el correo</Text>
-      <Picker
-        selectedValue={selectedidusuario}
-        onValueChange={(itemValue, itemIndex) => setSelectedidusuario(itemValue)}
-        style={styles.picker}
-      >
-        {idusuario.map((idusuarios, index) => (
-          <Picker.Item key={index} label={idusuarios.email} value={idusuarios.idUsuario} />
-        ))}
-      </Picker>
-
       <Text style={styles.text}>Valor</Text>
       <TextInput
         placeholder='Valor'
         style={styles.textInput}
         value={valor}
         onChangeText={setvalor}
+      />
+
+      <Text style={styles.text}>Numero de factura</Text>
+      <TextInput
+        placeholder='Numero factura'
+        style={styles.textInput}
+        value={valor}
+        onChangeText={setfactura}
       />
 
       <Text style={styles.text}>Descripcion</Text>
